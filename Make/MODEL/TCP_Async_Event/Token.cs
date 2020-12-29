@@ -25,6 +25,10 @@ namespace Make.MODEL.TCP_Async_Event
         private MsgToken msgToken;
 
         private User user;
+
+        private Msg_Client msg_Client = new Msg_Client();
+
+        private SocketAsyncEventArgs sendEventArgs;
         /// <summary>
         /// Class constructor.
         /// </summary>
@@ -34,6 +38,9 @@ namespace Make.MODEL.TCP_Async_Event
         {
             this.connection = connection;
             this.sb = new StringBuilder(bufferSize);
+            this.sendEventArgs = new SocketAsyncEventArgs();
+            sendEventArgs.UserToken = this;
+            sendEventArgs.RemoteEndPoint = this.Connection.RemoteEndPoint;
         }
 
         /// <summary>
@@ -147,20 +154,18 @@ namespace Make.MODEL.TCP_Async_Event
 
             return tempBytes;
         }
-        public void Send(Enums.Msg_Client_Type type, String message, object bound = null)
+        public void Send(Enums.Msg_Client_Type type,string message,object bound = null)
         {
             if (this.Connection.Connected)
             {
                 // Create a buffer to send.
-                Msg_Client msg_Server = new Msg_Client(MsgToken, type, message, JsonConvert.SerializeObject(bound));
-                Byte[] sendBuffer = Convert_SendMsg(JsonConvert.SerializeObject(msg_Server));
+                if (bound == null) msg_Client.Assign(MsgToken, type, message);
+                else if (bound.GetType() == typeof(string)) msg_Client.Assign(MsgToken, type, message,(string)bound);
+                else msg_Client.Assign(MsgToken, type, message, JsonConvert.SerializeObject(bound));
+                Byte[] sendBuffer = Convert_SendMsg(JsonConvert.SerializeObject(msg_Client));
                 // Prepare arguments for send/receive operation.
-                SocketAsyncEventArgs completeArgs = new SocketAsyncEventArgs();
-                completeArgs.SetBuffer(sendBuffer, 0, sendBuffer.Length);
-                completeArgs.UserToken = this.Connection;
-                completeArgs.RemoteEndPoint = this.Connection.RemoteEndPoint;
-                // Start sending asyncronally.
-                this.Connection.SendAsync(completeArgs);
+                sendEventArgs.SetBuffer(sendBuffer, 0, sendBuffer.Length);
+                this.Connection.SendAsync(sendEventArgs);
             }
             else
             {
