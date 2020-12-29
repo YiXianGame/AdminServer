@@ -10,8 +10,6 @@ namespace Pack.Element
     /// </summary>
     public partial class Menu_Data_Monitor_Panel : UserControl
     {
-        Adventure origin_Adventure, new_Adventure;
-        SkillCardsModel origin_SkillcardsModel, new_SkillCardsModel;
         public Menu_Data_Monitor_Panel()
         {
             InitializeComponent();

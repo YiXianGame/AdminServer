@@ -1,26 +1,17 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.IO;
-using System.Threading;
-using Make.BLL;
-using Material;
-using System.Windows.Forms;
-using System.Reflection;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace Make.MODEL
 {
     [JsonObject(MemberSerialization.OptOut)]
     public class SkillCard
     {
+        #region --字段--
         private string name="";//技能卡名称
         private int level;//技能卡等级
         private string father_ID;//父卡类
@@ -49,7 +40,9 @@ namespace Make.MODEL
         private int attack_Number = 1;
         private int auxiliary_Number = 1;
         private string iD;
+        #endregion
 
+        #region --属性--
         public string Name 
         { 
             get => name;
@@ -98,16 +91,17 @@ namespace Make.MODEL
         public string ID { get => iD; set => iD = value; }
         [JsonIgnore]
         public List<Player> Friends { get => friends; set => friends = value; }
+        #endregion
 
-
-        public  SkillCard()
+        #region --方法--
+        public SkillCard()
         {
             string temp_id;
             do
             {
                 temp_id = Guid.NewGuid().ToString();
             }
-            while (File.Exists(GeneralControl.directory + "\\技能卡\\" + temp_id + ".json"));
+            while (File.Exists(GeneralControl.Directory + "\\技能卡\\" + temp_id + ".json"));
             ID = temp_id;
         }
         public void Assign(SkillCard skillCard)
@@ -207,5 +201,6 @@ namespace Make.MODEL
         {
             return (from SkillCardsModel item in GeneralControl.Skill_Cards where item.ID == Father_ID select item).FirstOrDefault();
         }
+        #endregion
     }
 }

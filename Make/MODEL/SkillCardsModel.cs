@@ -1,12 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Dynamic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Make.MODEL
 {
@@ -16,14 +11,21 @@ namespace Make.MODEL
     [JsonObject(MemberSerialization.OptOut)]
     public class SkillCardsModel
     {
+        #region --字段--
         private SkillCard[] skillCards = new SkillCard[5] { new SkillCard(), new SkillCard(), new SkillCard(), new SkillCard(), new SkillCard() };
         private string iD;
-        public SkillCard[] SkillCards { get => skillCards; set => skillCards = value; }
         private string userName;
-        public string Cloud { get => cloud; set => cloud = value; }
         private string cloud = "云端";
+        #endregion
+
+        #region --属性--
+        public SkillCard[] SkillCards { get => skillCards; set => skillCards = value; }
+        public string Cloud { get => cloud; set => cloud = value; }
         public string ID { get => iD; set => iD = value; }
         public string UserName { get => userName; set => userName = value; }
+        #endregion
+
+        #region --方法--
         public SkillCardsModel()
         {
             string temp_id;
@@ -31,7 +33,7 @@ namespace Make.MODEL
             {
                 temp_id = Guid.NewGuid().ToString();
             }
-            while (File.Exists(GeneralControl.directory + "\\技能卡\\" + temp_id + ".json"));
+            while (File.Exists(GeneralControl.Directory + "\\技能卡\\" + temp_id + ".json"));
             ID = temp_id;
         }
         public SkillCardsModel(SkillCard[] Bind)
@@ -42,10 +44,11 @@ namespace Make.MODEL
             {
                 temp_id = Guid.NewGuid().ToString();
             }
-            while (File.Exists(GeneralControl.directory + "\\技能卡\\" + temp_id + ".json"));
+            while (File.Exists(GeneralControl.Directory + "\\技能卡\\" + temp_id + ".json"));
             ID = temp_id;
             foreach (SkillCard item in Bind) item.Father_ID = ID;
         }
+
         public void Assign(SkillCardsModel item)
         {
             iD = item.ID;
@@ -59,12 +62,12 @@ namespace Make.MODEL
         public void Save()
         {
             string json = JsonConvert.SerializeObject(this);
-            string filepath = Material.App.directory + "\\技能卡\\" + ID + ".json";
+            string filepath = GeneralControl.Directory + "\\技能卡\\" + ID + ".json";
             File.WriteAllText(filepath, json);
         }
         public void Delete()
         {
-            string filepath = Material.App.directory + "\\技能卡\\" + ID + ".json";
+            string filepath = GeneralControl.Directory + "\\技能卡\\" + ID + ".json";
             foreach(SkillCard item in skillCards)
             {
                 GeneralControl.Skill_Card_Name_Skllcard.Remove(item.Name);
@@ -86,5 +89,6 @@ namespace Make.MODEL
             GeneralControl.Skill_Cards.Add(this);
             GeneralControl.Skill_Cards_ID.Add(ID, this);
         }
+        #endregion
     }
 }

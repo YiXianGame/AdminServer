@@ -1,13 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Make.MODEL
 {
@@ -16,6 +11,7 @@ namespace Make.MODEL
     /// </summary>
     public class Adventure
     {
+        #region --字段--
         private string name = "";//奇遇名
         private int attack;//攻击力
         private int cure;//治疗量
@@ -28,6 +24,9 @@ namespace Make.MODEL
         private string description="";//奇遇的描述（介绍）
         private string iD;
         private string cloud = "云端";
+        #endregion
+
+        #region --属性--
         public string ID { get => iD; set => iD = value; }
         public string Name
         { 
@@ -62,6 +61,9 @@ namespace Make.MODEL
         {
             name = adventure_Name;
         }
+        #endregion
+
+        #region --方法--
         public Adventure()
         {
             string temp_id;
@@ -69,20 +71,20 @@ namespace Make.MODEL
             {
                 temp_id = Guid.NewGuid().ToString();
             }
-            while (File.Exists(GeneralControl.directory + "\\技能卡\\" + temp_id + ".json"));
+            while (File.Exists(GeneralControl.Directory + "\\技能卡\\" + temp_id + ".json"));
             ID = temp_id;
         }
 
         public void Save()
         {
             string json = JsonConvert.SerializeObject(this);
-            string filepath = GeneralControl.directory + "\\奇遇\\" + ID + ".json";
+            string filepath = GeneralControl.Directory + "\\奇遇\\" + ID + ".json";
             File.WriteAllText(filepath, json);
         }
 
         public void Delete()
         {
-            string filepath = GeneralControl.directory + "\\奇遇\\" + ID + ".json";
+            string filepath = GeneralControl.Directory + "\\奇遇\\" + ID + ".json";
             GeneralControl.Adventures.Remove(this);
             GeneralControl.Adventures_ID.Remove(ID);
             File.Delete(filepath);
@@ -95,6 +97,6 @@ namespace Make.MODEL
             GeneralControl.Adventures.Add(this);
             GeneralControl.Adventures_ID.Add(ID, this);
         }
-
+        #endregion
     }
 }

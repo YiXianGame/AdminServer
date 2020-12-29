@@ -2,17 +2,11 @@
 using Make.MODEL.TCP_Async_Event;
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Make
 {
@@ -21,7 +15,7 @@ namespace Make
     /// </summary>
     public static class GeneralControl
     {
-        public static string directory = System.IO.Directory.GetCurrentDirectory() + "\\仙战";//游戏数据文档路径
+        public static string Directory = System.IO.Directory.GetCurrentDirectory() + "\\仙战";//游戏数据文档路径
         public static int MaxLevel = 5;   //技能卡的最大等级
         public static int MaxStates = 8; //当前状态的最大量
         public static bool LazyLoad_SkillCards = true; //是否惰性加载UI卡片
@@ -74,7 +68,7 @@ namespace Make
             set
             {
                 skill_Card_Date = value;
-                Material.Ini.Write("游戏配置", "Skill_Card_Date", skill_Card_Date.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
+                Material.Ini.Write("游戏配置", "Skill_Card_Date", skill_Card_Date.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
             }
         }
 
@@ -84,45 +78,45 @@ namespace Make
             set
             {
                 adventure_Date = value;
-                Material.Ini.Write("游戏配置", "Adventure_Date", adventure_Date.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
+                Material.Ini.Write("游戏配置", "Adventure_Date", adventure_Date.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
             }
         }
 
         static GeneralControl()
         {
 
-            if(File.Exists(GeneralControl.directory + @"\游戏配置\GeneralControl.ini"))
+            if(File.Exists(GeneralControl.Directory + @"\游戏配置\GeneralControl.ini"))
             {
-                MaxLevel = int.Parse(Material.Ini.Read("游戏配置", "MaxLevel", "5", GeneralControl.directory + @"\游戏配置\GeneralControl.ini"));
-                MaxStates = int.Parse(Material.Ini.Read("游戏配置", "MaxStates", "9", GeneralControl.directory + @"\游戏配置\GeneralControl.ini"));
-                LazyLoad_SkillCards = bool.Parse(Material.Ini.Read("游戏配置", "LazyLoad_SkillCards", "9", GeneralControl.directory + @"\游戏配置\GeneralControl.ini"));
-                Skill_Card_Date = DateTime.Parse(Material.Ini.Read("游戏配置", "Skill_Card_Date", "", GeneralControl.directory + @"\游戏配置\GeneralControl.ini"));
-                Adventure_Date = DateTime.Parse(Material.Ini.Read("游戏配置", "Adventure_Date", "", GeneralControl.directory + @"\游戏配置\GeneralControl.ini"));
+                MaxLevel = int.Parse(Material.Ini.Read("游戏配置", "MaxLevel", "5", GeneralControl.Directory + @"\游戏配置\GeneralControl.ini"));
+                MaxStates = int.Parse(Material.Ini.Read("游戏配置", "MaxStates", "9", GeneralControl.Directory + @"\游戏配置\GeneralControl.ini"));
+                LazyLoad_SkillCards = bool.Parse(Material.Ini.Read("游戏配置", "LazyLoad_SkillCards", "9", GeneralControl.Directory + @"\游戏配置\GeneralControl.ini"));
+                Skill_Card_Date = DateTime.Parse(Material.Ini.Read("游戏配置", "Skill_Card_Date", "", GeneralControl.Directory + @"\游戏配置\GeneralControl.ini"));
+                Adventure_Date = DateTime.Parse(Material.Ini.Read("游戏配置", "Adventure_Date", "", GeneralControl.Directory + @"\游戏配置\GeneralControl.ini"));
             }
             else
             {
-                Material.Ini.Write("游戏配置", "MaxLevel", MaxLevel.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
-                Material.Ini.Write("游戏配置", "MaxStates", MaxStates.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
-                Material.Ini.Write("游戏配置", "LazyLoad_SkillCards", LazyLoad_SkillCards.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
-                Material.Ini.Write("游戏配置", "Skill_Card_Date", Skill_Card_Date.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
-                Material.Ini.Write("游戏配置", "Adventure_Date", Adventure_Date.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
+                Material.Ini.Write("游戏配置", "MaxLevel", MaxLevel.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
+                Material.Ini.Write("游戏配置", "MaxStates", MaxStates.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
+                Material.Ini.Write("游戏配置", "LazyLoad_SkillCards", LazyLoad_SkillCards.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
+                Material.Ini.Write("游戏配置", "Skill_Card_Date", Skill_Card_Date.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
+                Material.Ini.Write("游戏配置", "Adventure_Date", Adventure_Date.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
             }
         }
         public static void Save()
         {
-            Material.Ini.Write("游戏配置", "MaxLevel", MaxLevel.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
-            Material.Ini.Write("游戏配置", "MaxStates", MaxStates.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
-            Material.Ini.Write("游戏配置", "LazyLoad_SkillCards", LazyLoad_SkillCards.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
-            Material.Ini.Write("游戏配置", "Skill_Card_Date", Skill_Card_Date.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
-            Material.Ini.Write("游戏配置", "Adventure_Date", Adventure_Date.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
-            File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Skill_Cards_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Skill_Cards_Class.Instance));
-            File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Adventure_Cards_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Adventure_Cards_Class.Instance));
-            File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_GameControl_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_GameControl_Class.Instance));
-            File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Data_Monitor_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Data_Monitor_Class.Instance));
-            File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Person_Informations_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Person_Information_Class.Instance));
-            File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Command_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Command_Class.Instance));
-            File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Lience_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Lience_Class.Instance));
-            File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Version_Informations_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Version_Informations_Class.Instance));
+            Material.Ini.Write("游戏配置", "MaxLevel", MaxLevel.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
+            Material.Ini.Write("游戏配置", "MaxStates", MaxStates.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
+            Material.Ini.Write("游戏配置", "LazyLoad_SkillCards", LazyLoad_SkillCards.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
+            Material.Ini.Write("游戏配置", "Skill_Card_Date", Skill_Card_Date.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
+            Material.Ini.Write("游戏配置", "Adventure_Date", Adventure_Date.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
+            File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Skill_Cards_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Skill_Cards_Class.Instance));
+            File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Adventure_Cards_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Adventure_Cards_Class.Instance));
+            File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_GameControl_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_GameControl_Class.Instance));
+            File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Data_Monitor_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Data_Monitor_Class.Instance));
+            File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Person_Informations_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Person_Information_Class.Instance));
+            File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Command_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Command_Class.Instance));
+            File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Lience_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Lience_Class.Instance));
+            File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Version_Informations_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Version_Informations_Class.Instance));
         }
         public class Menu_Skill_Cards_Class
         {
@@ -132,16 +126,16 @@ namespace Make
             }
             private static readonly Lazy<Menu_Skill_Cards_Class> lazy = new Lazy<Menu_Skill_Cards_Class>(() => 
             {
-                if (File.Exists(GeneralControl.directory + @"\游戏配置\Menu_Skill_Cards_Class.json"))
+                if (File.Exists(GeneralControl.Directory + @"\游戏配置\Menu_Skill_Cards_Class.json"))
                 {
-                    return JsonConvert.DeserializeObject<Menu_Skill_Cards_Class>(File.ReadAllText(GeneralControl.directory + @"\游戏配置\Menu_Skill_Cards_Class.json"));
+                    return JsonConvert.DeserializeObject<Menu_Skill_Cards_Class>(File.ReadAllText(GeneralControl.Directory + @"\游戏配置\Menu_Skill_Cards_Class.json"));
                 }
                 else return new Menu_Skill_Cards_Class();
             });
             public static Menu_Skill_Cards_Class Instance { get { return lazy.Value; } }
             public void Save()
             {
-                File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Skill_Cards_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Skill_Cards_Class.Instance));
+                File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Skill_Cards_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Skill_Cards_Class.Instance));
             }
         }
         public class Menu_Adventure_Cards_Class
@@ -152,16 +146,16 @@ namespace Make
             }
             private static readonly Lazy<Menu_Adventure_Cards_Class> lazy = new Lazy<Menu_Adventure_Cards_Class>(() =>
             {
-                if (File.Exists(GeneralControl.directory + @"\游戏配置\Menu_Adventure_Cards_Class.json"))
+                if (File.Exists(GeneralControl.Directory + @"\游戏配置\Menu_Adventure_Cards_Class.json"))
                 {
-                    return JsonConvert.DeserializeObject<Menu_Adventure_Cards_Class>(File.ReadAllText(GeneralControl.directory + @"\游戏配置\Menu_Adventure_Cards_Class.json"));
+                    return JsonConvert.DeserializeObject<Menu_Adventure_Cards_Class>(File.ReadAllText(GeneralControl.Directory + @"\游戏配置\Menu_Adventure_Cards_Class.json"));
                 }
                 else return new Menu_Adventure_Cards_Class();
             });
             public static Menu_Adventure_Cards_Class Instance { get { return lazy.Value; } }
             public void Save()
             {
-                File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Adventure_Cards_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Adventure_Cards_Class.Instance));
+                File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Adventure_Cards_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Adventure_Cards_Class.Instance));
             }
         }
         public class Menu_GameControl_Class
@@ -172,16 +166,16 @@ namespace Make
             }
             private static readonly Lazy<Menu_GameControl_Class> lazy = new Lazy<Menu_GameControl_Class>(() =>
             {
-                if (File.Exists(GeneralControl.directory + @"\游戏配置\Menu_GameControl_Class.json"))
+                if (File.Exists(GeneralControl.Directory + @"\游戏配置\Menu_GameControl_Class.json"))
                 {
-                    return JsonConvert.DeserializeObject<Menu_GameControl_Class>(File.ReadAllText(GeneralControl.directory + @"\游戏配置\Menu_GameControl_Class.json"));
+                    return JsonConvert.DeserializeObject<Menu_GameControl_Class>(File.ReadAllText(GeneralControl.Directory + @"\游戏配置\Menu_GameControl_Class.json"));
                 }
                 else return new Menu_GameControl_Class();
             });
             public static Menu_GameControl_Class Instance { get { return lazy.Value; } }
             public void Save()
             {
-                File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_GameControl_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_GameControl_Class.Instance));
+                File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_GameControl_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_GameControl_Class.Instance));
             }
             public int Adventure_Probability { get; set; } = 50;
             public int Buy_Card_Coast { get; set; } = 10;
@@ -272,16 +266,16 @@ namespace Make
             }
             private static readonly Lazy<Menu_Version_Informations_Class> lazy = new Lazy<Menu_Version_Informations_Class>(() =>
             {
-                if (File.Exists(GeneralControl.directory + @"\游戏配置\Menu_Version_Informations_Class.json"))
+                if (File.Exists(GeneralControl.Directory + @"\游戏配置\Menu_Version_Informations_Class.json"))
                 {
-                    return JsonConvert.DeserializeObject<Menu_Version_Informations_Class>(File.ReadAllText(GeneralControl.directory + @"\游戏配置\Menu_Version_Informations_Class.json"));
+                    return JsonConvert.DeserializeObject<Menu_Version_Informations_Class>(File.ReadAllText(GeneralControl.Directory + @"\游戏配置\Menu_Version_Informations_Class.json"));
                 }
                 else return new Menu_Version_Informations_Class();
             });
             public string Expiration_Date { get; set; } = DateTime.Now.ToString();
             public void Save()
             {
-                File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Version_Informations_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Version_Informations_Class.Instance));
+                File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Version_Informations_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Version_Informations_Class.Instance));
             }
         }
         public class Menu_Data_Monitor_Class : INotifyPropertyChanged
@@ -298,9 +292,9 @@ namespace Make
             }
             private static readonly Lazy<Menu_Data_Monitor_Class> lazy = new Lazy<Menu_Data_Monitor_Class>(() =>
             {
-                if (File.Exists(GeneralControl.directory + @"\游戏配置\Menu_Data_Monitor_Class.json"))
+                if (File.Exists(GeneralControl.Directory + @"\游戏配置\Menu_Data_Monitor_Class.json"))
                 {
-                    return JsonConvert.DeserializeObject<Menu_Data_Monitor_Class>(File.ReadAllText(GeneralControl.directory + @"\游戏配置\Menu_Data_Monitor_Class.json"));
+                    return JsonConvert.DeserializeObject<Menu_Data_Monitor_Class>(File.ReadAllText(GeneralControl.Directory + @"\游戏配置\Menu_Data_Monitor_Class.json"));
                 }
                 else return new Menu_Data_Monitor_Class();
             });
@@ -319,7 +313,7 @@ namespace Make
             public string Sockets { get => sockets; set { sockets = value; OnPropertyChanged("sockets"); } }
             public void Save()
             {
-                File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Data_Monitor_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Data_Monitor_Class.Instance));
+                File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Data_Monitor_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Data_Monitor_Class.Instance));
             }
             public virtual void OnPropertyChanged(string propertyName)
             {
@@ -333,9 +327,9 @@ namespace Make
         {
             private static readonly Lazy<Menu_Person_Information_Class> lazy = new Lazy<Menu_Person_Information_Class>(() =>
             {
-                if (File.Exists(GeneralControl.directory + @"\游戏配置\Menu_Person_Informations_Class.json"))
+                if (File.Exists(GeneralControl.Directory + @"\游戏配置\Menu_Person_Informations_Class.json"))
                 {
-                    return JsonConvert.DeserializeObject<Menu_Person_Information_Class>(File.ReadAllText(GeneralControl.directory + @"\游戏配置\Menu_Person_Informations_Class.json"));
+                    return JsonConvert.DeserializeObject<Menu_Person_Information_Class>(File.ReadAllText(GeneralControl.Directory + @"\游戏配置\Menu_Person_Informations_Class.json"));
                 }
                 else
                 {
@@ -365,7 +359,7 @@ namespace Make
             }
             public void Save()
             {
-                File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Person_Informations_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Person_Information_Class.Instance));
+                File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Person_Informations_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Person_Information_Class.Instance));
             }
         }
         public class Menu_Command_Class
@@ -419,15 +413,15 @@ namespace Make
             }
             private static readonly Lazy<Menu_Command_Class> lazy = new Lazy<Menu_Command_Class>(() =>
             {
-                if (File.Exists(GeneralControl.directory + @"\游戏配置\Menu_Command_Class.json"))
+                if (File.Exists(GeneralControl.Directory + @"\游戏配置\Menu_Command_Class.json"))
                 {
-                    return JsonConvert.DeserializeObject<Menu_Command_Class>(File.ReadAllText(GeneralControl.directory + @"\游戏配置\Menu_Command_Class.json"));
+                    return JsonConvert.DeserializeObject<Menu_Command_Class>(File.ReadAllText(GeneralControl.Directory + @"\游戏配置\Menu_Command_Class.json"));
                 }
                 else return new Menu_Command_Class();
             });
             public void Save()
             {
-                File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Command_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Command_Class.Instance));
+                File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Command_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Command_Class.Instance));
             }
 
         }
@@ -441,15 +435,15 @@ namespace Make
             }
             private static readonly Lazy<Menu_Lience_Class> lazy = new Lazy<Menu_Lience_Class>(() =>
             {
-                if (File.Exists(GeneralControl.directory + @"\游戏配置\Menu_Lience_Class.json"))
+                if (File.Exists(GeneralControl.Directory + @"\游戏配置\Menu_Lience_Class.json"))
                 {
-                    return JsonConvert.DeserializeObject<Menu_Lience_Class>(File.ReadAllText(GeneralControl.directory + @"\游戏配置\Menu_Lience_Class.json"));
+                    return JsonConvert.DeserializeObject<Menu_Lience_Class>(File.ReadAllText(GeneralControl.Directory + @"\游戏配置\Menu_Lience_Class.json"));
                 }
                 else return new Menu_Lience_Class();
             });
             public void Save()
             {
-                File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Lience_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Lience_Class.Instance));
+                File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Lience_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Lience_Class.Instance));
             }
         }
     }

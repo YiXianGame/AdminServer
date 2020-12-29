@@ -1,10 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Make.MODEL.TCP_Async_Event
 {
@@ -15,7 +10,7 @@ namespace Make.MODEL.TCP_Async_Event
         public Enums.Msg_Server_Type Type;
         public string Bound;
         public MsgToken Token;
-        public Msg_Server(MsgToken token,Enums.Msg_Server_Type type,string head, string bound = null)
+        public Msg_Server(MsgToken token, Enums.Msg_Server_Type type, string head, string bound = null)
         {
             this.Token = token;
             this.Type = type;
