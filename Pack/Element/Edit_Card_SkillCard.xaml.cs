@@ -40,7 +40,6 @@ namespace Pack.Element
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             States_Select.Visibility = Visibility.Visible;
-
         }
 
 
@@ -54,7 +53,6 @@ namespace Pack.Element
                 item.Date_Latest = dateTime;
             }
             GeneralControl.Skill_Card_Date = dateTime;
-
             Origin_Custom_Card.SkillCardsModel.Save();
         }
 

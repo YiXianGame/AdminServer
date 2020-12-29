@@ -91,6 +91,9 @@
     <Compile Include="Element\Edit_Card_SkillCard.xaml.cs">
       <DependentUpon>Edit_Card_SkillCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Element\Menu_Data_Monitor_Panel.xaml.cs">
+      <DependentUpon>Menu_Data_Monitor_Panel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Element\UserUI.xaml.cs">
       <DependentUpon>UserUI.xaml</DependentUpon>
     </Compile>
@@ -116,6 +119,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Element\Edit_Card_SkillCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Element\Menu_Data_Monitor_Panel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
