@@ -15,6 +15,7 @@ namespace Make.MODEL
     [JsonObject(MemberSerialization.OptOut)]
     public class State
     {
+        #region --字段--
         private string name;//状态名称
         private Player owner;//状态来源
         private Player direct;//状态对象
@@ -27,6 +28,9 @@ namespace Make.MODEL
         private int effect_mp;//作用范围
         private string effect_Information;
         private string message_Information;
+        #endregion
+
+        #region --属性--
         public string Name
         {
             get => name;
@@ -111,7 +115,9 @@ namespace Make.MODEL
         public Player Direct { get => direct; set => direct = value; }
         public string Effect_Information { get => effect_Information; set => effect_Information = value; }
         public string Message_Information { get => message_Information; set => message_Information = value; }
+        #endregion
 
+        #region --方法--
         public State Clone()
         {
             return MemberwiseClone() as State;
@@ -165,5 +171,6 @@ namespace Make.MODEL
                 }
             }
         }
+        #endregion
     }
 }

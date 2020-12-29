@@ -21,6 +21,7 @@ namespace Make.MODEL
     [JsonObject(MemberSerialization.OptOut)]
     public class SkillCard
     {
+        #region --字段--
         private string name="";//技能卡名称
         private int level;//技能卡等级
         private string father_ID;//父卡类
@@ -49,7 +50,9 @@ namespace Make.MODEL
         private int attack_Number = 1;
         private int auxiliary_Number = 1;
         private string iD;
+        #endregion
 
+        #region --属性--
         public string Name 
         { 
             get => name;
@@ -98,9 +101,10 @@ namespace Make.MODEL
         public string ID { get => iD; set => iD = value; }
         [JsonIgnore]
         public List<Player> Friends { get => friends; set => friends = value; }
+        #endregion
 
-
-        public  SkillCard()
+        #region --方法--
+        public SkillCard()
         {
             string temp_id;
             do
@@ -207,5 +211,6 @@ namespace Make.MODEL
         {
             return (from SkillCardsModel item in GeneralControl.Skill_Cards where item.ID == Father_ID select item).FirstOrDefault();
         }
+        #endregion
     }
 }

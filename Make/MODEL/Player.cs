@@ -2,6 +2,7 @@
 using Make.MODEL.TCP_Async_Event;
 using Material;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -77,7 +78,7 @@ namespace Make.MODEL
         public Dictionary<string, SkillCard> Hand_SkillCards { get => hand_SkillCards; set => hand_SkillCards = value; }
         public Room Room { get => room; set => room = value; }
         public SkillCard Action_Skill { get => action_Skill; set => action_Skill = value; }
-        [JsonConverter(typeof(EnumJsonConvert<Enums.Race>))]
+        [JsonConverter(typeof(StringEnumConverter))]
         public Enums.Race Race { get => race; set => race = value; }
         public bool Action { get => action; set => action = value; }
         public int Team { get => team; set => team = value; }
@@ -96,7 +97,7 @@ namespace Make.MODEL
         public int Hp_max { get => hp_max; set => hp_max = value; }
         public int Mp_max { get => mp_max; set => mp_max = value; }
         public string Title { get => title; set => title = value; }
-        [JsonConverter(typeof(EnumJsonConvert<Enums.User_Active>))]
+        [JsonConverter(typeof(StringEnumConverter))]
         public Enums.Player_Active Active { get => active; set => active = value; }
         public string UserName { get => userName; set => userName = value; }
         public string NickName { get => nickName; set => nickName = value; }

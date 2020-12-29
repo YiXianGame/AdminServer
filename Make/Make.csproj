@@ -59,7 +59,6 @@
     <Compile Include="BLL\UserHelper.cs" />
     <Compile Include="GeneralControl.cs" />
     <Compile Include="MODEL\Adventure.cs" />
-    <Compile Include="MODEL\EnumJsonConvert.cs" />
     <Compile Include="MODEL\EventArgsModel\DeathEventArgs.cs" />
     <Compile Include="MODEL\TCP_Async_Event\MsgToken.cs" />
     <Compile Include="MODEL\Room.cs" />

@@ -16,14 +16,21 @@ namespace Make.MODEL
     [JsonObject(MemberSerialization.OptOut)]
     public class SkillCardsModel
     {
+        #region --字段--
         private SkillCard[] skillCards = new SkillCard[5] { new SkillCard(), new SkillCard(), new SkillCard(), new SkillCard(), new SkillCard() };
         private string iD;
-        public SkillCard[] SkillCards { get => skillCards; set => skillCards = value; }
         private string userName;
-        public string Cloud { get => cloud; set => cloud = value; }
         private string cloud = "云端";
+        #endregion
+
+        #region --属性--
+        public SkillCard[] SkillCards { get => skillCards; set => skillCards = value; }
+        public string Cloud { get => cloud; set => cloud = value; }
         public string ID { get => iD; set => iD = value; }
         public string UserName { get => userName; set => userName = value; }
+        #endregion
+
+        #region --方法--
         public SkillCardsModel()
         {
             string temp_id;
@@ -86,5 +93,6 @@ namespace Make.MODEL
             GeneralControl.Skill_Cards.Add(this);
             GeneralControl.Skill_Cards_ID.Add(ID, this);
         }
+        #endregion
     }
 }
