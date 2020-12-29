@@ -1,20 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.IO;
-using System.Threading;
-using Make.BLL;
-using Material;
-using System.Windows.Forms;
-using System.Reflection;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace Make.MODEL
 {
@@ -111,7 +101,7 @@ namespace Make.MODEL
             {
                 temp_id = Guid.NewGuid().ToString();
             }
-            while (File.Exists(GeneralControl.directory + "\\技能卡\\" + temp_id + ".json"));
+            while (File.Exists(GeneralControl.Directory + "\\技能卡\\" + temp_id + ".json"));
             ID = temp_id;
         }
         public void Assign(SkillCard skillCard)

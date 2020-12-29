@@ -8,7 +8,7 @@ namespace Pack
     public static class XY
     {
         public static MainWindow MainWindow;
-        public static void TCP_Event_Receive(Token token, Msg_Client msg_Client)
+        public static void Client_Recieve_Server(Token token, Msg_Server msg)
         {
 
         }

@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
+using System;
 using System.Net.Sockets;
-using System.Globalization;
-using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
-using Make.MODEL;
-using Newtonsoft.Json;
 
 namespace Make.MODEL.TCP_Async_Event
 {
     delegate void ProcessData(SocketAsyncEventArgs args);
+
     /// <summary>
     /// Token for use with SocketAsyncEventArgs.
     /// </summary>
     public sealed class Token : IDisposable
     {
-
         private Socket connection;
 
         private StringBuilder sb;
 
-        private Int32 needRemain;
 
         private byte[] head = new byte[5];
+
+        private Int32 needRemain;
 
         private MsgToken msgToken;
 
@@ -64,9 +61,10 @@ namespace Make.MODEL.TCP_Async_Event
             // Clear StringBuffer, so it can receive more data from a keep-alive connection client.
             sb.Length = 0;
             needRemain = 0;
+
             return received;
         }
-
+        System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
         /// <summary>
         /// Set data received from the client.
         /// </summary>
@@ -80,16 +78,14 @@ namespace Make.MODEL.TCP_Async_Event
             {
                 if (needRemain <= count)
                 {
-                    Debug.WriteLine($"[足够] 缓冲区大小{args.Buffer.Length} 总量{count}\n待接收量{needRemain}");
                     sb.Append(Encoding.UTF8.GetString(args.Buffer, 0, needRemain));
                     p = needRemain;
                     string data = ProcessData(args);
                     //处理本次数据
-                    Task.Run(() => TCP_Event.OnReceive(this,JsonConvert.DeserializeObject<Msg_Client>(data)));
+                    Task.Run(() => TCP_Event.OnReceive(this, JsonConvert.DeserializeObject<Msg_Server>(data)));
                 }
                 else
                 {
-                    Debug.WriteLine($"[不足] 缓冲区大小{args.Buffer.Length} 总量{count}\n待接收量{needRemain}");
                     sb.Append(Encoding.UTF8.GetString(args.Buffer, 0, count));
                     needRemain -= count;
                     return;
@@ -112,13 +108,12 @@ namespace Make.MODEL.TCP_Async_Event
                 }
                 //收到头包
                 needRemain = BitConverter.ToInt32(head, 1);
-
                 //如果接收数据满足整条量
                 if (needRemain <= count - p)
                 {
                     string data = Encoding.UTF8.GetString(args.Buffer, p, needRemain);
-                    //处理本次数据    
-                    Task.Run(() => TCP_Event.OnReceive(this,JsonConvert.DeserializeObject<Msg_Client>(data)));
+                    //处理本次数据
+                    Task.Run(() => TCP_Event.OnReceive(this, JsonConvert.DeserializeObject<Msg_Server>(data)));
                     p = needRemain + p;
                     needRemain = 0;
                 }
@@ -130,6 +125,7 @@ namespace Make.MODEL.TCP_Async_Event
                 }
             }
         }
+
 
         /// <summary>
         /// 构造发送数据
@@ -156,8 +152,8 @@ namespace Make.MODEL.TCP_Async_Event
             if (this.Connection.Connected)
             {
                 // Create a buffer to send.
-                Msg_Client msg_Client = new Msg_Client(MsgToken, type, message, JsonConvert.SerializeObject(bound));
-                Byte[] sendBuffer = Convert_SendMsg(JsonConvert.SerializeObject(msg_Client));
+                Msg_Client msg_Server = new Msg_Client(MsgToken, type, message, JsonConvert.SerializeObject(bound));
+                Byte[] sendBuffer = Convert_SendMsg(JsonConvert.SerializeObject(msg_Server));
                 // Prepare arguments for send/receive operation.
                 SocketAsyncEventArgs completeArgs = new SocketAsyncEventArgs();
                 completeArgs.SetBuffer(sendBuffer, 0, sendBuffer.Length);
@@ -171,8 +167,6 @@ namespace Make.MODEL.TCP_Async_Event
                 throw new SocketException((Int32)SocketError.NotConnected);
             }
         }
-
-
         #region IDisposable Members
 
         /// <summary>

@@ -49,34 +49,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\Author_Helper.cs" />
-    <Compile Include="BLL\BinarySerialize.cs" />
+    <Compile Include="BLL\Event_Enable.cs" />
     <Compile Include="BLL\Initialization.cs" />
-    <Compile Include="BLL\JSON_Helper.cs" />
-    <Compile Include="BLL\Player_Helper.cs" />
-    <Compile Include="BLL\SkillCard_Helper.cs" />
-    <Compile Include="BLL\State_Helper.cs" />
-    <Compile Include="BLL\UserHelper.cs" />
     <Compile Include="GeneralControl.cs" />
     <Compile Include="MODEL\Adventure.cs" />
-    <Compile Include="MODEL\EventArgsModel\DeathEventArgs.cs" />
-    <Compile Include="MODEL\TCP_Async_Event\MsgToken.cs" />
-    <Compile Include="MODEL\Room.cs" />
-    <Compile Include="MODEL\TCP_Async_Event\TCP_Event.cs" />
-    <Compile Include="MODEL\TCP_Async_Event\SocketAsyncEventArgsPool.cs" />
-    <Compile Include="MODEL\TCP_Async_Event\SocketListener.cs" />
-    <Compile Include="MODEL\TCP_Async_Event\TCP_Server.cs" />
-    <Compile Include="MODEL\TCP_Async_Event\Token.cs" />
-    <Compile Include="MODEL\User.cs" />
     <Compile Include="MODEL\Enums.cs" />
     <Compile Include="MODEL\Filter.cs" />
-    <Compile Include="MODEL\TCP_Async_Event\Msg_Client.cs" />
-    <Compile Include="MODEL\TCP_Async_Event\Msg_Server.cs" />
     <Compile Include="MODEL\Player.cs" />
+    <Compile Include="MODEL\Room.cs" />
     <Compile Include="MODEL\Simple_SkillCard.cs" />
     <Compile Include="MODEL\SkillCard.cs" />
     <Compile Include="MODEL\SkillCardsModel.cs" />
     <Compile Include="MODEL\State.cs" />
+    <Compile Include="MODEL\TCP_Async_Event\MsgToken.cs" />
+    <Compile Include="MODEL\TCP_Async_Event\Msg_Client.cs" />
+    <Compile Include="MODEL\TCP_Async_Event\Msg_Server.cs" />
+    <Compile Include="MODEL\TCP_Async_Event\SocketClient.cs" />
+    <Compile Include="MODEL\TCP_Async_Event\TCP_Client.cs" />
+    <Compile Include="MODEL\TCP_Async_Event\TCP_Event.cs" />
+    <Compile Include="MODEL\TCP_Async_Event\Token.cs" />
+    <Compile Include="MODEL\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -86,7 +78,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="BLL\json1.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using Pack.Element;
 using System;
 using System.IO;
-using System.Threading;
 using System.Windows;
 
 namespace Pack
@@ -41,11 +40,7 @@ namespace Pack
 
         private void Init()
         {
-            TCP_Server socket_Server = new TCP_Server();//TCP初始化
-            TCP_Event.Receive += XY.TCP_Event_Receive;
-            Thread thread = new Thread(() => { socket_Server.Init(new string[] { "28015", "1000", }); });
-            thread.Start();
-
+            TCP_Event.Receive += XY.Client_Recieve_Server;
             UI_Init();
             Menu_Adventure_Cards.DataContext = Make.GeneralControl.Menu_Adventure_Cards_Class.Instance;
             Menu_Command.DataContext = GeneralControl.Menu_Command_Class.Instance;
@@ -133,25 +128,25 @@ namespace Pack
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_GameControl_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_GameControl_Class.Instance));
+            File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_GameControl_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_GameControl_Class.Instance));
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Command_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Command_Class.Instance));
+            File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Command_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Command_Class.Instance));
         }
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            Material.Ini.Write("游戏配置", "MaxLevel", GeneralControl.MaxLevel.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
-            Material.Ini.Write("游戏配置", "MaxStates", GeneralControl.MaxStates.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
-            Material.Ini.Write("游戏配置", "LazyLoad_SkillCards", GeneralControl.LazyLoad_SkillCards.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
-            Material.Ini.Write("游戏配置", "Skill_Card_Date", GeneralControl.Skill_Card_Date.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
-            Material.Ini.Write("游戏配置", "Adventure_Date", GeneralControl.Adventure_Date.ToString(), GeneralControl.directory + @"\游戏配置\GeneralControl.ini");
+            Material.Ini.Write("游戏配置", "MaxLevel", GeneralControl.MaxLevel.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
+            Material.Ini.Write("游戏配置", "MaxStates", GeneralControl.MaxStates.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
+            Material.Ini.Write("游戏配置", "LazyLoad_SkillCards", GeneralControl.LazyLoad_SkillCards.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
+            Material.Ini.Write("游戏配置", "Skill_Card_Date", GeneralControl.Skill_Card_Date.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
+            Material.Ini.Write("游戏配置", "Adventure_Date", GeneralControl.Adventure_Date.ToString(), GeneralControl.Directory + @"\游戏配置\GeneralControl.ini");
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Person_Informations_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Person_Information_Class.Instance));
+            File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Person_Informations_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Person_Information_Class.Instance));
             GeneralControl.Menu_Person_Information_Class.Instance.User.Save();
         }
 
@@ -162,7 +157,7 @@ namespace Pack
 
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
-            File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Person_Informations_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Person_Information_Class.Instance));
+            File.WriteAllText(GeneralControl.Directory + @"\游戏配置\Menu_Person_Informations_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Person_Information_Class.Instance));
             GeneralControl.Menu_Data_Monitor_Class.Instance.Save();
         }
 

@@ -1,14 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Make.MODEL
 {
@@ -121,55 +112,6 @@ namespace Make.MODEL
         public State Clone()
         {
             return MemberwiseClone() as State;
-        }
-        public bool Can_Effect( int mp)
-        {
-            if ( Effect_mp >= mp) return true;
-            return false;
-        }
-
-        /// <summary>
-        /// 检测该状态是否到期
-        /// </summary>
-        /// <returns>True:到期 False:没到期</returns>
-        public bool Is_Expire()
-        {
-            if(Direct.Active ==  Enums.Player_Active.Immediate)
-            {
-                if (Expire_Immediate >= DateTime.Now)
-                {
-                    return false;
-                }
-                else
-                {
-                    Direct.States.Remove(this);
-                    return true;
-                }
-            }
-            else if (Direct.Active == Enums.Player_Active.Round)
-            {
-                if (Expire_Round <= Direct.Room.Round)
-                {
-                    return false;
-                }
-                else
-                {
-                    Direct.States.Remove(this);
-                    return true;
-                }
-            }
-            else
-            {
-                if (Expire_Immediate >= DateTime.Now)
-                {
-                    return false;
-                }
-                else
-                {
-                    Direct.States.Remove(this);
-                    return true;
-                }
-            }
         }
         #endregion
     }
