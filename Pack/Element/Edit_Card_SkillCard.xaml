@@ -162,9 +162,8 @@
                         <ToggleButton IsChecked="{Binding Is_Attack, UpdateSourceTrigger=PropertyChanged}" Height="Auto" Margin="0" Width="Auto"/>
                     </StackPanel>
                 </WrapPanel>
-                <Button Style="{StaticResource MaterialDesignOutlinedButton}" Margin="487,311,113,27" FontSize="18" FontWeight="Bold" FontFamily="楷体"   Click="Button_Click_2" Content="关闭"/>
-                <Button Style="{StaticResource MaterialDesignOutlinedButton}" Margin="315,312,288,26" FontSize="18" Content="删除" FontWeight="Bold" FontFamily="楷体" Click="Button_Click_3"/>
-                <Button Style="{StaticResource MaterialDesignOutlinedButton}" Margin="136,312,472,26" FontSize="18" Content="上传" FontWeight="Bold" FontFamily="楷体" Click="Button_Click_5"/>
+                <Button Style="{StaticResource MaterialDesignOutlinedButton}" Margin="427,311,173,27" FontSize="18" FontWeight="Bold" FontFamily="楷体"   Click="Button_Click_2" Content="关闭"/>
+                <Button Style="{StaticResource MaterialDesignOutlinedButton}" Margin="175,311,428,27" FontSize="18" Content="删除" FontWeight="Bold" FontFamily="楷体" Click="Button_Click_3"/>
             </Grid>
             <Grid Grid.Column="0" Grid.Row="1">
                 <ScrollViewer VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" Height="300">
