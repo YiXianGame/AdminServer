@@ -47,8 +47,8 @@ namespace Pack.Properties {
         }
         
         /// <summary>
-        ///   重写当前线程的 CurrentUICulture 属性
-        ///   重写当前线程的 CurrentUICulture 属性。
+        ///   重写当前线程的 CurrentUICulture 属性，对
+        ///   使用此强类型资源类的所有资源查找执行重写。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
@@ -61,31 +61,7 @@ namespace Pack.Properties {
         }
         
         /// <summary>
-        ///   查找类似 {
-        ///  &quot;app&quot;: &quot;com.tencent.autoreply&quot;,
-        ///  &quot;desc&quot;: &quot;&quot;,
-        ///  &quot;view&quot;: &quot;autoreply&quot;,
-        ///  &quot;ver&quot;: &quot;0.0.0.1&quot;,
-        ///  &quot;prompt&quot;: &quot;[来自仙域的诏令]&quot;,
-        ///  &quot;meta&quot;: {
-        ///    &quot;metadata&quot;: {
-        ///      &quot;title&quot;: &quot;游戏菜单&quot;,
-        ///      &quot;buttons&quot;: [
-        ///        {
-        ///          &quot;slot&quot;: 1,
-        ///          &quot;action_data&quot;: &quot;个人信息&quot;,
-        ///          &quot;name&quot;: &quot;个人信息&quot;,
-        ///          &quot;action&quot;: &quot;notify&quot;
-        ///        },
-        ///        {
-        ///          &quot;slot&quot;: 1,
-        ///          &quot;action_data&quot;: &quot;加入地图&quot;,
-        ///          &quot;name&quot;: &quot;加入地图&quot;,
-        ///          &quot;action&quot;: &quot;notify&quot;
-        ///        }
-        ///      ],
-        ///      &quot;type&quot;: &quot;guest&quot;,
-        ///      &quot; [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 {&quot;app&quot;:&quot;com.tencent.autoreply&quot;,&quot;desc&quot;:&quot;&quot;,&quot;view&quot;:&quot;autoreply&quot;,&quot;ver&quot;:&quot;0.0.0.1&quot;,&quot;prompt&quot;:&quot;[动画表情]&quot;,&quot;meta&quot;:{&quot;metadata&quot;:{&quot;title&quot;:&quot;点击蓝色字体有惊喜&quot;,&quot;buttons&quot;:[{&quot;slot&quot;:1,&quot;action_data&quot;:&quot;我是傻逼&quot;,&quot;name&quot;:&quot;点我&quot;,&quot;action&quot;:&quot;notify&quot;}],&quot;type&quot;:&quot;guest&quot;,&quot;token&quot;:&quot;LAcV49xqyE57S17B8ZT6FU7odBveNMYJzux288tBD3c=&quot;}},&quot;config&quot;:{&quot;forward&quot;:1,&quot;showSender&quot;:1}} 的本地化字符串。
         /// </summary>
         internal static string JSON_QuickButton_Help {
             get {

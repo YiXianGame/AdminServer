@@ -41,7 +41,7 @@
             <SolidColorBrush x:Key="MahApps.Metro.Brushes.ToggleSwitchButton.ThumbIndicatorCheckedBrush.Win10" Color="{DynamicResource Primary500Foreground}" />
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <Grid>
         <Border Background="Blue" CornerRadius="5">
             <Border.Effect>
@@ -147,7 +147,7 @@
                                 x:Name="AuthorButton">
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="Account" Width="18" Height="18" />
-                                <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" FontFamily="楷体" FontWeight="Bold" Text="用户"/>
+                                <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" FontFamily="楷体" FontWeight="Bold" Text="作者"/>
                             </StackPanel>
                         </Button>
                         <Button Style="{DynamicResource MaterialDesignFlatButton}"
@@ -160,22 +160,23 @@
                     </WrapPanel>
                 </Grid>
                 <Grid Grid.Column="1"  Grid.Row="0" Grid.RowSpan="3">
-                    <Border BorderBrush="{DynamicResource MaterialDesignDivider}">
-                        <WrapPanel  VerticalAlignment="Top" Width="82" HorizontalAlignment="Right" Margin="0,4,0,-3">
-                            <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="Red" Text="{Binding Attack}" Width="30"  Margin="10,10,0,0"/>
-                            <TextBlock FontFamily="楷体" FontWeight="Bold" Margin="-5,10,-5,7"><Run Text="攻击力"/></TextBlock>
+                    <Border BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="6,5,-6,-5">
+                        <WrapPanel  VerticalAlignment="Top" Width="82" HorizontalAlignment="Right" Margin="0,0,0,-3">
+                            <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="Red" Text="{Binding Attack}" Width="30"  Margin="10,3,0,0"/>
+                            <TextBlock FontFamily="楷体" FontWeight="Bold" Margin="-5,3,-5,7"><Run Text="攻击力"/></TextBlock>
 
-                            <TextBlock  Style="{StaticResource MaterialDesignSubtitle2TextBlock}"  FontFamily="楷体" FontWeight="Bold"  Foreground="Blue" Text="{Binding Direct_Mp}" Width="30" Margin="10,30,0,0"/>
-                            <TextBlock FontFamily="楷体" FontWeight="Bold"  HorizontalAlignment="Left" Margin="-5,30,-5,7"><Run Text="损魔量"/></TextBlock>
+                            <TextBlock  Style="{StaticResource MaterialDesignSubtitle2TextBlock}"  FontFamily="楷体" FontWeight="Bold"  Foreground="Blue" Text="{Binding Direct_Mp}" Width="30" Margin="10,20,0,0"/>
+                            <TextBlock FontFamily="楷体" FontWeight="Bold"  HorizontalAlignment="Left" Margin="-5,20,-5,7"><Run Text="损魔量"/></TextBlock>
 
-                            <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="DarkTurquoise" Text="{Binding Cure}" Width="30" Margin="10,30,0,0"/>
-                            <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" Margin="-5,30,-5,7"><Run Text="治疗量"/></TextBlock>
+                            <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="DarkTurquoise" Text="{Binding Cure}" Width="30" Margin="10,20,0,0"/>
+                            <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" Margin="-5,20,-5,7"><Run Text="治疗量"/></TextBlock>
 
-                            <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="DarkBlue" Text="{Binding Self_Mp}" Width="30" Margin="10,30,0,0"/>
-                            <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" Margin="-5,30,-5,7"><Run Text="回魔量"/></TextBlock>
+                            <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="DarkBlue" Text="{Binding Self_Mp}" Width="30" Margin="10,20,0,0"/>
+                            <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" Margin="-5,20,-5,7"><Run Text="回魔量"/></TextBlock>
 
-                            <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="DarkBlue" Text="{Binding Probability}" Width="30" Margin="10,30,0,0"/>
-                            <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" Margin="-5,30,-5,7"><Run Text="随机率"/></TextBlock>
+                            <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="DarkBlue" Text="{Binding Probability}" Width="30" Margin="10,20,0,0"/>
+                            <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" Margin="-5,20,-5,7"><Run Text="随机率"/></TextBlock>
+                            <Label x:Name="Cloud" FontFamily="楷体" Foreground="SkyBlue" FontWeight="Bold"  Content="非云端" Width="65" FontSize="18" Margin="10,20,0,5"/>
                         </WrapPanel>
                     </Border>
                 </Grid>

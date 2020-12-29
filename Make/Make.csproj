@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Make</RootNamespace>
     <AssemblyName>Make</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -53,15 +53,15 @@
     <Compile Include="BLL\BinarySerialize.cs" />
     <Compile Include="BLL\Initialization.cs" />
     <Compile Include="BLL\JSON_Helper.cs" />
-    <Compile Include="BLL\NPC_Helper.cs" />
     <Compile Include="BLL\Player_Helper.cs" />
     <Compile Include="BLL\SkillCard_Helper.cs" />
     <Compile Include="BLL\State_Helper.cs" />
     <Compile Include="BLL\UserHelper.cs" />
+    <Compile Include="GeneralControl.cs" />
     <Compile Include="MODEL\Adventure.cs" />
     <Compile Include="MODEL\EnumJsonConvert.cs" />
     <Compile Include="MODEL\EventArgsModel\DeathEventArgs.cs" />
-    <Compile Include="MODEL\MsgToken.cs" />
+    <Compile Include="MODEL\TCP_Async_Event\MsgToken.cs" />
     <Compile Include="MODEL\Room.cs" />
     <Compile Include="MODEL\TCP_Async_Event\TCP_Event.cs" />
     <Compile Include="MODEL\TCP_Async_Event\SocketAsyncEventArgsPool.cs" />
@@ -71,21 +71,13 @@
     <Compile Include="MODEL\User.cs" />
     <Compile Include="MODEL\Enums.cs" />
     <Compile Include="MODEL\Filter.cs" />
-    <Compile Include="MODEL\GeneralControl.cs" />
-    <Compile Include="MODEL\Map.cs" />
-    <Compile Include="MODEL\Monster.cs" />
-    <Compile Include="MODEL\Msg_Client.cs" />
-    <Compile Include="MODEL\Msg_Server.cs" />
+    <Compile Include="MODEL\TCP_Async_Event\Msg_Client.cs" />
+    <Compile Include="MODEL\TCP_Async_Event\Msg_Server.cs" />
     <Compile Include="MODEL\Player.cs" />
-    <Compile Include="MODEL\Pos.cs" />
-    <Compile Include="MODEL\Room_Round.cs" />
-    <Compile Include="MODEL\Team_Room.cs" />
-    <Compile Include="MODEL\Solo_Room.cs" />
     <Compile Include="MODEL\Simple_SkillCard.cs" />
     <Compile Include="MODEL\SkillCard.cs" />
     <Compile Include="MODEL\SkillCardsModel.cs" />
     <Compile Include="MODEL\State.cs" />
-    <Compile Include="MODEL\XianYu_Map.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

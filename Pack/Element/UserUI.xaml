@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Pack.Element.Author"
+﻿<UserControl x:Class="Pack.Element.UserUI"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -59,8 +59,7 @@
                 <Label Content="{Binding Path=QQ}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30" Margin="215,145,335,235"/>
                 <TextBlock Margin="504,65,21,26" TextWrapping="Wrap" Text="{Binding Path=Information}" FontSize="30"/>
                 <Button Height="Auto" Margin="740,6,13,371" Click="Button_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="IndianRed"/>
-            </Grid> 
+            </Grid>
         </Border>
     </Viewbox>
 </UserControl>
-

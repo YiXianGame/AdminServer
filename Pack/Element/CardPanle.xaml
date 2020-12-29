@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Pack.Element"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:model="clr-namespace:Pack.MODEL"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" RenderTransformOrigin="0,0" d:DesignWidth="1000" d:DesignHeight="460"
              >
     <UserControl.Resources>
@@ -40,8 +40,8 @@
     </UserControl.Resources>
     <Grid>
         <local:Edit_Card_SkillCard HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="EditCard" Panel.ZIndex="1" Visibility="Hidden"/>
-        <ScrollViewer Margin="0,60,0,40" CanContentScroll="False" ScrollChanged="ScrollViewer_ScrollChanged">
-            <WrapPanel x:Name="CardsPanel"></WrapPanel>
+        <ScrollViewer x:Name="All_SkillCards" Margin="0,65,0,0" >
+            <WrapPanel x:Name="CardsPanel" Margin="0" Panel.ZIndex="0"/>
         </ScrollViewer>
         <materialDesign:ColorZone x:Name="Filter_Bar"
   Mode="Custom"
@@ -104,9 +104,10 @@
                     <CheckBox Content="治疗" Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" IsChecked="{Binding Path=Is_Cure}" Click="CheckBox_Click_3" Height="Auto" HorizontalAlignment="Stretch"/>
                     <CheckBox Content="攻击" Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" IsChecked="{Binding Path=Is_Attack}" Click="CheckBox_Click_4" Height="Auto" HorizontalAlignment="Stretch"/>
                     <Button Width="60" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="15" Style="{StaticResource   MaterialDesignFlatDarkBgButton}" FontFamily="楷体" Background="CornflowerBlue" BorderBrush="{x:Null}" Content="新增" Click="Button_Click_1" />
+                    <Button Width="60" Margin="0,0,0,0" materialDesign:ButtonAssist.CornerRadius="15" Style="{StaticResource MaterialDesignFlatDarkBgButton}" FontFamily="楷体" Background="CornflowerBlue" BorderBrush="{x:Null}" Content="刷新" Click="Button_Click_2" />
                 </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>
-        <local:Author x:Name="Author" Margin="90" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="Hidden"/>
+        <local:UserUI x:Name="User" Margin="90" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="Hidden"/>
     </Grid>
 </UserControl>

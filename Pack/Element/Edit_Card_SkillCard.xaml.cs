@@ -1,30 +1,11 @@
-﻿using Make.MODEL;
-using MaterialDesignThemes.Wpf;
-using Pack.MODEL;
+﻿using Make;
+using Make.MODEL;
+using Newtonsoft.Json;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing.Drawing2D;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Pack.Element
 {
@@ -49,24 +30,20 @@ namespace Pack.Element
             Custom_Card.Rate.Value = 1;
             Visibility = Visibility.Visible;
         }
-        public void Open_Edit(SkillCardsModel skillCardsModel)
+
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Custom_Card.SkillCardsModel = skillCardsModel;
-            Custom_Card.DataContext = skillCardsModel.SkillCards[0];
-            Custom_Card.Rate.Value = 1;
-            Visibility = Visibility.Visible;
+
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             States_Select.Visibility = Visibility.Visible;
+
         }
 
-        public void Button_Clear()
-        {
-            Close.Click -= Button_Click_2;
-            Delete.Click -= Button_Click_3;
-        }
+
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
@@ -77,9 +54,8 @@ namespace Pack.Element
                 item.Date_Latest = dateTime;
             }
             GeneralControl.Skill_Card_Date = dateTime;
+
             Origin_Custom_Card.SkillCardsModel.Save();
-            GeneralControl.Menu_Person_Information_Class.Instance.Author.Upgrade_num++;
-            GeneralControl.Menu_Person_Information_Class.Instance.Author.Save();
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -89,13 +65,13 @@ namespace Pack.Element
             Origin_Custom_Card.SkillCardsModel.Delete();
             GeneralControl.Skill_Cards.Remove(Origin_Custom_Card.SkillCardsModel);
             GeneralControl.Skill_Cards_ID.Remove(Origin_Custom_Card.SkillCardsModel.ID);
-            foreach(SkillCard item in Origin_Custom_Card.SkillCardsModel.SkillCards)
+            foreach (SkillCard item in Origin_Custom_Card.SkillCardsModel.SkillCards)
             {
                 GeneralControl.Skill_Card_ID_Skllcard.Remove(item.ID);
                 GeneralControl.Skill_Card_Name_Skllcard.Remove(item.Name);
             }
             GeneralControl.Skill_Card_Date = dateTime;
-            Pack_General.MainWindow.CardPanle.CardsPanel.Children.Remove(Origin_Custom_Card);
+            XY.MainWindow.CardPanle.CardsPanel.Children.Remove(Origin_Custom_Card);
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -109,7 +85,7 @@ namespace Pack.Element
         }
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            if (Custom_Card.SkillCardsModel.SkillCards[Custom_Card.Rate.Value - 1].Effect_States.Count >= Make.MODEL.GeneralControl.MaxStates)
+            if (Custom_Card.SkillCardsModel.SkillCards[Custom_Card.Rate.Value - 1].Effect_States.Count >= GeneralControl.MaxStates)
             {
                 MessageBox.Show("状态数量已满");
                 States_Select.Visibility = Visibility.Hidden;
@@ -121,8 +97,14 @@ namespace Pack.Element
                 Duration_Immediate = 10,
                 Duration_Round = 1
             };
-            Custom_Card.SkillCardsModel.SkillCards[Custom_Card.Rate.Value - 1].Effect_States.Add(state);      
+            Custom_Card.SkillCardsModel.SkillCards[Custom_Card.Rate.Value - 1].Effect_States.Add(state);
             States_Select.Visibility = Visibility.Hidden;
         }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            XY.Send("技能卡上传#" + JsonConvert.SerializeObject(Origin_Custom_Card.SkillCardsModel));
+        }
+
     }
 }

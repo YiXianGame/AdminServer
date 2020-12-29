@@ -90,7 +90,7 @@
                 </WrapPanel>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="0" >
-                <local:Custom_Card_SkillCard  x:Name="Custom_Card" Margin="4,10,10,4"  />
+                <local:Custom_Card_SkillCard  x:Name="Custom_Card" Margin="-20,10,9,4"  />
             </Grid>
             <Grid Grid.Column="1"  Grid.Row="0">
                 <ToggleButton x:Name="Is_Basic_Copy" IsChecked="{Binding Is_Self}" Style="{StaticResource MaterialDesignActionLightToggleButton}" Background="Lavender" ToolTip="此技能是否释放于自己" Margin="0,17,17,0"  HorizontalAlignment="Right" VerticalAlignment="Top"/>
@@ -117,22 +117,22 @@
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="Need_Mp"
                     materialDesign:HintAssist.Hint="仙气值" 
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Margin="27,1" Foreground="blue" FontFamily="楷体" HorizontalContentAlignment="Center" FontSize="20" Text="{Binding Need_Mp, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Margin="27,1" Foreground="blue" FontFamily="楷体" HorizontalContentAlignment="Center" Grid.Row="1" FontSize="20" Text="{Binding Need_Mp, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBox x:Name="Self_Mp"
                     materialDesign:HintAssist.Hint="回魔量" 
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Margin="27,1" Foreground="DarkCyan" FontFamily="楷体" HorizontalContentAlignment="Center" Grid.Row="2" FontSize="20"  Text="{Binding Self_Mp, UpdateSourceTrigger=PropertyChanged}"/>
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Margin="27,1" Foreground="DarkCyan" FontFamily="楷体" HorizontalContentAlignment="Center" Grid.Column="1" Grid.Row="2" FontSize="20"  Text="{Binding Self_Mp, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBox x:Name="Cure"
                     materialDesign:HintAssist.Hint="治疗量" 
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Margin="27,1" Foreground="Green" FontFamily="楷体" HorizontalContentAlignment="Center" Grid.Row="1" FontSize="20"  Text="{Binding Cure, UpdateSourceTrigger=PropertyChanged}"/>
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Margin="27,1" Foreground="Green" FontFamily="楷体" HorizontalContentAlignment="Center" Grid.Row="2" FontSize="20"  Text="{Binding Cure, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBox x:Name="Direct_Mp"
                     materialDesign:HintAssist.Hint="损魔量" 
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="DarkMagenta" FontFamily="楷体" HorizontalContentAlignment="Center" Grid.Column="2" Margin="27,1" Grid.Row="2" FontSize="20"  Text="{Binding Direct_Mp, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBox x:Name="Attack"
                     materialDesign:HintAssist.Hint="攻击力"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Margin="27,1" Foreground="Salmon" FontFamily="楷体" HorizontalContentAlignment="Center" Grid.Column="2" Grid.Row="1" FontSize="20"  Text="{Binding Attack, UpdateSourceTrigger=PropertyChanged}"/>
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Margin="27,1" Foreground="Salmon" FontFamily="楷体" HorizontalContentAlignment="Center" Grid.Column="1" Grid.Row="1" FontSize="20"  Text="{Binding Attack, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBox x:Name="Probability"
                     materialDesign:HintAssist.Hint="随机率" 
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Margin="27,1" Foreground="DarkTurquoise" FontFamily="楷体" HorizontalContentAlignment="Center" Grid.Column="1" FontSize="20"  Text="{Binding Probability, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2"/>
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Margin="27,1" Foreground="DarkTurquoise" FontFamily="楷体" HorizontalContentAlignment="Center" Grid.Column="2" FontSize="20"  Text="{Binding Probability, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"/>
                     <TextBox x:Name="Attack_Number"
                     materialDesign:HintAssist.Hint="魂命数" 
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Margin="27,1,27,1" Foreground="DarkTurquoise" FontFamily="楷体" HorizontalContentAlignment="Center" FontSize="20"  Text="{Binding Attack_Number, UpdateSourceTrigger=PropertyChanged}"/>
@@ -162,8 +162,9 @@
                         <ToggleButton IsChecked="{Binding Is_Attack, UpdateSourceTrigger=PropertyChanged}" Height="Auto" Margin="0" Width="Auto"/>
                     </StackPanel>
                 </WrapPanel>
-                <Button x:Name="Close" Style="{StaticResource MaterialDesignOutlinedButton}" Margin="402,304,116,20" FontSize="18" FontWeight="Bold" FontFamily="楷体"   Click="Button_Click_2" Content="关闭"/>
-                <Button x:Name="Delete" Style="{StaticResource MaterialDesignOutlinedButton}" Margin="120,304,398,20" FontSize="18" Content="删除" FontWeight="Bold" FontFamily="楷体" Click="Button_Click_3"/>
+                <Button Style="{StaticResource MaterialDesignOutlinedButton}" Margin="487,311,113,27" FontSize="18" FontWeight="Bold" FontFamily="楷体"   Click="Button_Click_2" Content="关闭"/>
+                <Button Style="{StaticResource MaterialDesignOutlinedButton}" Margin="315,312,288,26" FontSize="18" Content="删除" FontWeight="Bold" FontFamily="楷体" Click="Button_Click_3"/>
+                <Button Style="{StaticResource MaterialDesignOutlinedButton}" Margin="136,312,472,26" FontSize="18" Content="上传" FontWeight="Bold" FontFamily="楷体" Click="Button_Click_5"/>
             </Grid>
             <Grid Grid.Column="0" Grid.Row="1">
                 <ScrollViewer VerticalAlignment="Top" VerticalScrollBarVisibility="Hidden" Height="300">
@@ -175,7 +176,6 @@
                             <DataTemplate>
                                 <Border
         x:Name="Border"
-        Margin="13,0,0,0"
         Padding="8"
         BorderThickness="0 0 0 1"
         BorderBrush="{DynamicResource MaterialDesignDivider}">

@@ -1,30 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Pack.Element;
-using Make;
+﻿using Make;
 using Make.MODEL;
-using MaterialDesignThemes.Wpf;
-using System.IO;
-using Pack.MODEL;
-using Newtonsoft.Json;
-using System.Threading;
 using Make.MODEL.TCP_Async_Event;
+using Newtonsoft.Json;
+using Pack.Element;
+using System;
+using System.IO;
+using System.Threading;
+using System.Windows;
 
 namespace Pack
 {
@@ -49,8 +31,8 @@ namespace Pack
             */
             ///*
             Make.BLL.Initialization initialization = new Make.BLL.Initialization();//游戏初始化入口
-            Pack_General.MainWindow = this;
-            InitializeComponent(); 
+            XY.MainWindow = this;
+            InitializeComponent();
             Init();
             //*/
         }
@@ -63,9 +45,9 @@ namespace Pack
             TCP_Event.Receive += XY.TCP_Event_Receive;
             Thread thread = new Thread(() => { socket_Server.Init(new string[] { "28015", "1000", }); });
             thread.Start();
-            
+
             UI_Init();
-            Menu_Adventure_Cards.DataContext = Make.MODEL.GeneralControl.Menu_Adventure_Cards_Class.Instance;
+            Menu_Adventure_Cards.DataContext = Make.GeneralControl.Menu_Adventure_Cards_Class.Instance;
             Menu_Command.DataContext = GeneralControl.Menu_Command_Class.Instance;
             Menu_GameControl.DataContext = GeneralControl.Menu_GameControl_Class.Instance;
             Menu_Lience.DataContext = GeneralControl.Menu_Lience_Class.Instance;
@@ -84,7 +66,7 @@ namespace Pack
 
         private void SkillCardsPanle_Initialized_1(object sender, EventArgs e)
         {
-            
+
         }
 
         private void Menu_Button_3_Click(object sender, RoutedEventArgs e)
@@ -95,7 +77,7 @@ namespace Pack
 
         private void Menu_Button_4_Click(object sender, RoutedEventArgs e)
         {
-    
+
         }
         private void Menu_Button_1_Click(object sender, RoutedEventArgs e)
         {
@@ -122,7 +104,7 @@ namespace Pack
         }
 
         private void Menu_Button_1_Copy4_Click(object sender, RoutedEventArgs e)
-        {   
+        {
             Main_TabControl.SelectedIndex = 5;
         }
 
@@ -138,12 +120,12 @@ namespace Pack
         private void UI_Init()
         {
             //初始化技能面板
-            foreach(SkillCardsModel skillCardsModel in GeneralControl.Skill_Cards)
+            foreach (SkillCardsModel skillCardsModel in GeneralControl.Skill_Cards)
             {
                 CardPanle.Add_Card(skillCardsModel);
             }
             //初始化奇遇
-            foreach (Adventure adventure in Make.MODEL.GeneralControl.Adventures)
+            foreach (Adventure adventure in Make.GeneralControl.Adventures)
             {
                 AdventurePanle.Add_Adventure(adventure);
             }
@@ -170,12 +152,12 @@ namespace Pack
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             File.WriteAllText(GeneralControl.directory + @"\游戏配置\Menu_Person_Informations_Class.json", JsonConvert.SerializeObject(GeneralControl.Menu_Person_Information_Class.Instance));
-            GeneralControl.Menu_Person_Information_Class.Instance.Author.Save();
+            GeneralControl.Menu_Person_Information_Class.Instance.User.Save();
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            GeneralControl.Menu_Person_Information_Class.Instance.Author = Make.MODEL.User.Load(GeneralControl.Menu_Person_Information_Class.Instance.Author.UserName);
+            GeneralControl.Menu_Person_Information_Class.Instance.User = Make.MODEL.User.Load(GeneralControl.Menu_Person_Information_Class.Instance.User.UserName);
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e)

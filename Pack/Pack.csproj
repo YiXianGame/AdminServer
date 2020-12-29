@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Pack</RootNamespace>
     <AssemblyName>Pack</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -75,59 +75,10 @@
     <Compile Include="Element\AdventurePanle.xaml.cs">
       <DependentUpon>AdventurePanle.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Element\Author.xaml.cs">
-      <DependentUpon>Author.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Element\Converts.cs" />
     <Compile Include="Element\CardPanle.xaml.cs">
       <DependentUpon>CardPanle.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Element\Menu_Data_Monitor_Panel.xaml.cs">
-      <DependentUpon>Menu_Data_Monitor_Panel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MODEL\Pack_General.cs" />
-    <Compile Include="MODEL\VirtualizingWrapPanel.cs" />
-    <Compile Include="XY.cs" />
-    <Page Include="Element\AdventurePanle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Element\Author.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Element\CardPanle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Element\Custom_Card_Adventure.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Element\Custom_Card_SkillCard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Element\Edit_Card_Adventure.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Element\Edit_Card_SkillCard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Element\Menu_Data_Monitor_Panel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Element\Converts.cs" />
     <Compile Include="Element\Custom_Card_Adventure.xaml.cs">
       <DependentUpon>Custom_Card_Adventure.xaml</DependentUpon>
     </Compile>
@@ -139,6 +90,46 @@
     </Compile>
     <Compile Include="Element\Edit_Card_SkillCard.xaml.cs">
       <DependentUpon>Edit_Card_SkillCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Element\UserUI.xaml.cs">
+      <DependentUpon>UserUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XY.cs" />
+    <Page Include="Element\AdventurePanle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Element\CardPanle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Element\Custom_Card_Adventure.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Element\Custom_Card_SkillCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Element\Edit_Card_Adventure.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Element\Edit_Card_SkillCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Element\UserUI.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

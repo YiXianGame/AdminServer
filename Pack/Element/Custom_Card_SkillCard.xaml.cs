@@ -1,49 +1,38 @@
-﻿using Make.MODEL;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Make;
+using Make.MODEL;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Pack;
-using System.Globalization;
-using System.IO;
-using Make.BLL;
 
 namespace Pack.Element
-{   
+{
     /// <summary>
     /// Custom_Card.xaml 的交互逻辑
     /// </summary>
-    public partial class Custom_Card_SkillCard : UserControl
+    public partial class Custom_Card_SkillCard
     {
         public SkillCardsModel SkillCardsModel;
         public Custom_Card_SkillCard(SkillCardsModel skillCards)
         {
-            InitializeComponent();         
+            InitializeComponent();
             DataContext = skillCards.SkillCards[0];
             SkillCardsModel = skillCards;
-            InitializeComponent();
+            Cloud.Content = SkillCardsModel.Cloud;
         }
         public Custom_Card_SkillCard()
         {
             InitializeComponent();
+
         }
         private void Rate_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<int> e)
         {
             if (SkillCardsModel != null)
-            {              
-                DataContext = SkillCardsModel.SkillCards[e.NewValue-1];
+            {
+                DataContext = SkillCardsModel.SkillCards[e.NewValue - 1];
             }
+        }
+
+        private void AuthorButton_Click(object sender, RoutedEventArgs e)
+        {
+            GeneralControl.Token.Send(Enums.Msg_Client_Type.Information, "作者查询#" + SkillCardsModel.UserName);
         }
     }
 }

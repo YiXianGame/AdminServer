@@ -1,28 +1,11 @@
-﻿using Make.MODEL;
-using MaterialDesignThemes.Wpf;
-using Pack.MODEL;
+﻿using Make;
+using Make.MODEL;
+using Newtonsoft.Json;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Pack.Element
 {
@@ -47,12 +30,7 @@ namespace Pack.Element
             Custom_Card_Adventure.DataContext = adventureCard.Adventure;
             Visibility = Visibility.Visible;
         }
-        public void Open_Edit(Adventure adventure)
-        {
-            Custom_Card_Adventure.Adventure = adventure;
-            Custom_Card_Adventure.DataContext = adventure;
-            Visibility = Visibility.Visible;
-        }
+
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -73,15 +51,11 @@ namespace Pack.Element
         {
             States_Select.Visibility = Visibility.Visible;
         }
-        public void Button_Clear()
-        {
-            Close.Click -= Button_Click_2;
-            Delete.Click -= Button_Click_3;
-        }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             Origin_Custom_Card.Adventure.Save();
+
             GeneralControl.Adventure_Date = DateTime.Now;
             this.Visibility = Visibility.Hidden;
         }
@@ -93,14 +67,14 @@ namespace Pack.Element
         {
             this.Visibility = Visibility.Hidden;
             GeneralControl.Adventure_Date = DateTime.Now;
-            Pack_General.MainWindow.AdventurePanle.AdventurePanel.Children.Remove(Origin_Custom_Card);
+            XY.MainWindow.AdventurePanle.AdventurePanel.Children.Remove(Origin_Custom_Card);
             GeneralControl.Adventures.Remove(Origin_Custom_Card.Adventure);
             GeneralControl.Adventures_ID.Remove(Origin_Custom_Card.Adventure.ID);
             Origin_Custom_Card.Adventure.Delete();
         }
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            if (Custom_Card_Adventure.Adventure.Effect_States.Count >= Make.MODEL.GeneralControl.MaxStates)
+            if (Custom_Card_Adventure.Adventure.Effect_States.Count >= GeneralControl.MaxStates)
             {
                 MessageBox.Show("状态数量已满");
                 States_Select.Visibility = Visibility.Hidden;
@@ -114,6 +88,11 @@ namespace Pack.Element
             };
             Custom_Card_Adventure.Adventure.Effect_States.Add(state);
             States_Select.Visibility = Visibility.Hidden;
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            XY.Send("奇遇上传#" + JsonConvert.SerializeObject(Origin_Custom_Card.Adventure));
         }
     }
 }

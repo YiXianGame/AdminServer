@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Make.MODEL;
+using Make.MODEL.TCP_Async_Event;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Make.MODEL
+namespace Make
 {
     /// <summary>
     /// 总控
@@ -29,10 +31,7 @@ namespace Make.MODEL
         public static List<User> Queue_Team = new List<User>();//团战匹配队列
         public static List<User> Queue_Battle_Royale = new List<User>();//大逃杀匹配队列
         public static Socket Socket_Server;//TCP服务器
-        /// <summary>
-        /// 仙域地图
-        /// </summary>
-        public static XianYu_Map Map; //仙域地图
+        public static Token Token;
         /// <summary>
         /// 技能卡MODEL
         /// </summary>
@@ -341,25 +340,25 @@ namespace Make.MODEL
                 else
                 {
                     Menu_Person_Information_Class menu_Person_Informations_Class = new Menu_Person_Information_Class();
-                    menu_Person_Informations_Class.Author.UserName = "839336369";
-                    menu_Person_Informations_Class.Author.NickName = "剑仙";  
-                    menu_Person_Informations_Class.Author.Information = "个性签名";
-                    menu_Person_Informations_Class.Author.QQ = 839336369;
-                    menu_Person_Informations_Class.Author.Save();
+                    menu_Person_Informations_Class.User.UserName = "839336369";
+                    menu_Person_Informations_Class.User.NickName = "剑仙";  
+                    menu_Person_Informations_Class.User.Information = "个性签名";
+                    menu_Person_Informations_Class.User.QQ = 839336369;
+                    menu_Person_Informations_Class.User.Save();
                     return menu_Person_Informations_Class;
                 }
             });
             public static Menu_Person_Information_Class Instance { get { return lazy.Value; } }
             public event PropertyChangedEventHandler PropertyChanged = delegate { };
-            private User author = new User();
-            public User Author
+            private User user = new User();
+            public User User
             {
-                get { return author; }
+                get { return user; }
                 set
                 {
-                    if (Author != value)
+                    if (User != value)
                     {
-                        author = value;
+                        user = value;
                         PropertyChanged(this, new PropertyChangedEventArgs("Author"));
                     }
                 }

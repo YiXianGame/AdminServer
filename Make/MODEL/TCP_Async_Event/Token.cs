@@ -151,13 +151,13 @@ namespace Make.MODEL.TCP_Async_Event
 
             return tempBytes;
         }
-        public void Send(Enums.Msg_Server_Type type, String message, object bound = null)
+        public void Send(Enums.Msg_Client_Type type, String message, object bound = null)
         {
             if (this.Connection.Connected)
             {
                 // Create a buffer to send.
-                Msg_Server msg_Server = new Msg_Server(MsgToken, type, message, JsonConvert.SerializeObject(bound));
-                Byte[] sendBuffer = Convert_SendMsg(JsonConvert.SerializeObject(msg_Server));
+                Msg_Client msg_Client = new Msg_Client(MsgToken, type, message, JsonConvert.SerializeObject(bound));
+                Byte[] sendBuffer = Convert_SendMsg(JsonConvert.SerializeObject(msg_Client));
                 // Prepare arguments for send/receive operation.
                 SocketAsyncEventArgs completeArgs = new SocketAsyncEventArgs();
                 completeArgs.SetBuffer(sendBuffer, 0, sendBuffer.Length);

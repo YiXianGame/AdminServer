@@ -16,7 +16,7 @@ namespace Make.MODEL
         /// <param name="value">技能卡的等级</param>
         /// <param name="BluePrint">蓝本</param>
         /// <returns></returns>
-        public static IEnumerable<SkillCardsModel> SkillCardsModel(List<SkillCardsModel> query, int value,SkillCard BluePrint)
+        public static IEnumerable<SkillCardsModel> SkillCardsModel(IEnumerable<SkillCardsModel> query, int value,SkillCard BluePrint)
         {
             IEnumerable<SkillCardsModel> result = from SkillCardsModel item in query select item;
             if (BluePrint.Is_Magic)

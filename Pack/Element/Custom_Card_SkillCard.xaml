@@ -164,7 +164,7 @@
                                 x:Name="AuthorButton">
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="Account" Width="18" Height="18" />
-                                <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" FontFamily="楷体" FontWeight="Bold" Text="用户"/>
+                                <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" FontFamily="楷体" FontWeight="Bold" Text="作者"/>
                             </StackPanel>
                         </Button>
                         <Button Style="{DynamicResource MaterialDesignFlatButton}"
@@ -178,31 +178,30 @@
                 </Grid>
                 <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="3">
                     <WrapPanel  VerticalAlignment="Top" Width="82" HorizontalAlignment="Right" Margin="0,0,0,0">
-                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="Red" Text="{Binding Attack}" Width="30" FontSize="15"  Margin="5,5,0,10"/>
-                        <TextBlock FontFamily="楷体"  FontWeight="Bold" FontSize="15" Margin="-5,5,0,10"><Run Text= "攻击力" /></TextBlock>
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="Red" Text="{Binding Attack}" Width="30" FontSize="14"  Margin="5,3,0,6"/>
+                        <TextBlock FontFamily="楷体"  FontWeight="Bold" FontSize="14" Margin="-5,3,0,6"><Run Text= "攻击力" /></TextBlock>
 
-                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="DarkMagenta" Text="{Binding Direct_Mp}" Width="30" FontSize="15" Margin="5,5,0,10"/>
-                        <TextBlock FontFamily="楷体" FontWeight="Bold"  HorizontalAlignment="Left" FontSize="15" Margin="-5,5,0,10"><Run Text="损魔量"/></TextBlock>
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="DarkMagenta" Text="{Binding Direct_Mp}" Width="30" FontSize="14" Margin="5,6,0,6"/>
+                        <TextBlock FontFamily="楷体" FontWeight="Bold"  HorizontalAlignment="Left" FontSize="14" Margin="-5,6,0,6"><Run Text="损魔量"/></TextBlock>
 
-                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}"  FontFamily="楷体" FontWeight="Bold"   Foreground="Green" Text="{Binding Cure}" Width="30" FontSize="15" Margin="5,5,0,10"/>
-                        <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" Margin="-5,5,0,10"><Run Text="治疗量"/></TextBlock>
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}"  FontFamily="楷体" FontWeight="Bold"   Foreground="Green" Text="{Binding Cure}" Width="30" FontSize="14" Margin="5,6,0,6"/>
+                        <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" Margin="-5,6,0,6"><Run Text="治疗量"/></TextBlock>
 
-                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold" Foreground="DarkCyan" Text="{Binding Self_Mp}" Width="30" FontSize="15" Margin="5,5,0,10"/>
-                        <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" Margin="-5,5,0,10"><Run Text="回魔量"/></TextBlock>
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold" Foreground="DarkCyan" Text="{Binding Self_Mp}" Width="30" FontSize="14" Margin="5,6,0,6"/>
+                        <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" Margin="-5,6,0,6"><Run Text="回魔量"/></TextBlock>
 
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="DarkTurquoise" Text="{Binding Probability}" Width="30" FontSize="14" Margin="5,6,0,6"/>
+                        <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" Margin="-5,6,0,6"><Run Text="随机率"/></TextBlock>
+
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="Silver" Text="{Binding Attack_Number}" Width="30" FontSize="14" Margin="5,6,0,6"/>
+                        <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" Margin="-5,6,0,6"><Run Text="魂命数"/></TextBlock>
+
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="Silver" Text="{Binding Attack_Number}" Width="30" FontSize="14" Margin="5,6,0,6"/>
+                        <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" FontSize="14" Margin="-5,6,0,6"><Run Text="灵命数"/></TextBlock>
                         
-
-                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}"  FontFamily="楷体" FontWeight="Bold"  Foreground="Blue" Text="{Binding Need_Mp}" Width="30" FontSize="15" Margin="5,5,0,10"/>
-                        <TextBlock FontFamily="楷体" FontWeight="Bold"  HorizontalAlignment="Left" FontSize="15" Margin="-5,5,0,10"><Run Text="仙气值"/></TextBlock>
-                        
-                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="DarkTurquoise" Text="{Binding Probability}" Width="30" FontSize="15" Margin="5,5,0,10"/>
-                        <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" Margin="-5,5,0,10"><Run Text="随机率"/></TextBlock>
-
-                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="Silver" Text="{Binding Attack_Number}" Width="30" FontSize="15" Margin="5,5,0,10"/>
-                        <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" Margin="-5,5,0,10"><Run Text="魂命数"/></TextBlock>
-
-                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" FontFamily="楷体" FontWeight="Bold"  Foreground="Silver" Text="{Binding Auxiliary_Number}" Width="30" FontSize="15" Margin="5,5,0,10"/>
-                        <TextBlock FontFamily="楷体" FontWeight="Bold" HorizontalAlignment="Left" FontSize="15" Margin="-5,5,0,10"><Run Text="灵命数"/></TextBlock>
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}"  FontFamily="楷体" FontWeight="Bold"  Foreground="Blue" Text="{Binding Need_Mp}" Width="30" FontSize="14" Margin="5,6,0,6"/>
+                        <TextBlock FontFamily="楷体" FontWeight="Bold"  HorizontalAlignment="Left" FontSize="14" Margin="-5,6,0,6"><Run Text="仙气值"/></TextBlock>
+                        <Label x:Name="Cloud" FontFamily="楷体" Foreground="SkyBlue" FontWeight="Bold"  Content="非云端" Width="65" FontSize="18" Margin="10,0,0,5"/>
                     </WrapPanel>
                 </Grid>
             </Grid>
