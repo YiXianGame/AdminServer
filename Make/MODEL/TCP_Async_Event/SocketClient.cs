@@ -1,129 +1,103 @@
+using Make.MODEL.RPC;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 
 namespace Make.MODEL.TCP_Async_Event
 {
-    /// <summary>
-    /// Implements the connection logic for the socket client.
-    /// </summary>
+
     public sealed class SocketClient : IDisposable
     {
         /// <summary>
-        /// Constants for socket operations.
-        /// </summary>
-        private const Int32 ReceiveOperation = 1, SendOperation = 0;
-
-        /// <summary>
-        /// The socket used to send/receive messages.
-        /// </summary>
-        private Socket clientSocket;
-
-        /// <summary>
-        /// Flag for connected socket.
-        /// </summary>
-        private Boolean connected = false;
-
-        /// <summary>
-        /// Listener endpoint.
+        /// 远程服务器地址
         /// </summary>
         private IPEndPoint hostEndPoint;
-
         /// <summary>
-        /// Signals a connection.
+        /// 信号量,控制线程进行连接等待
         /// </summary>
         private static AutoResetEvent autoConnectEvent = new AutoResetEvent(false);
-
         /// <summary>
-        /// Signals the send/receive operation.
+        /// 客户端配置
         /// </summary>
-        private static AutoResetEvent[] autoSendReceiveEvents = new AutoResetEvent[]
-        {
-            new AutoResetEvent(false),
-            new AutoResetEvent(false)
-        };
-
+        private const int DEFAULT_PORT = 28015, DEFAULT_NUM_CONNECTIONS = 1000, DEFAULT_BUFFER_SIZE = 1024;
+        private string hostname;
+        private string port;
         /// <summary>
-        /// Create an uninitialized client instance.  
-        /// To start the send/receive processing
-        /// call the Connect method followed by SendReceive method.
+        /// Token
         /// </summary>
-        /// <param name="hostName">Name of the host where the listener is running.</param>
-        /// <param name="port">Number of the TCP port from the listener.</param>
-        internal SocketClient(String hostName, Int32 port)
+        public Token Token { get; set; } 
+
+        public SocketClient(string hostname,string port)
         {
+            this.hostname = hostname;
+            this.port = port;
             // Get host related information.
-            IPHostEntry host = Dns.GetHostEntry(hostName);
-
-            // Addres of the host.
-            IPAddress[] addressList = host.AddressList;
-
+            IPAddress[] addressList = Dns.GetHostEntry(hostname).AddressList;
+            // Get endpoint for the listener.
+            IPEndPoint localEndPoint = new IPEndPoint(addressList[addressList.Length - 1],int.Parse(port));
             // Instantiates the endpoint and socket.
-            this.hostEndPoint = new IPEndPoint(addressList[addressList.Length - 1], port);
-            this.clientSocket = new Socket(this.hostEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            this.hostEndPoint = new IPEndPoint(addressList[addressList.Length - 1], int.Parse(port));
+            Token = new Token(null,hostname,port, DEFAULT_BUFFER_SIZE);
+            Token.Connection = new Socket(this.hostEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         }
 
-        /// <summary>
-        /// Connect to the host.
-        /// </summary>
-        /// <returns>True if connection has succeded, else false.</returns>
-        internal void Connect()
+        public void Connect()
         {
+            Socket clientSocket = Token.Connection;
             SocketAsyncEventArgs connectArgs = new SocketAsyncEventArgs();
-
-            connectArgs.UserToken = this.clientSocket;
+            connectArgs.UserToken = clientSocket;
             connectArgs.RemoteEndPoint = this.hostEndPoint;
             connectArgs.Completed += new EventHandler<SocketAsyncEventArgs>(OnConnect);
             connectArgs.AcceptSocket = clientSocket;
-            clientSocket.ConnectAsync(connectArgs);
-            autoConnectEvent.WaitOne();
-
-            SocketError errorCode = connectArgs.SocketError;
-            if (errorCode == SocketError.Success)
+            try
             {
-                InitReceive();
+                clientSocket.ConnectAsync(connectArgs);
+                autoConnectEvent.WaitOne();
+                SocketError errorCode = connectArgs.SocketError;
+                if (errorCode == SocketError.Success)
+                {
+                    Token.Connection = clientSocket;
+                    SocketAsyncEventArgs readEventArgs = new SocketAsyncEventArgs();
+                    readEventArgs.UserToken = Token;
+                    readEventArgs.SetBuffer(new byte[DEFAULT_BUFFER_SIZE],0,DEFAULT_BUFFER_SIZE);
+                    readEventArgs.Completed += OnReceiveCompleted;
+                    if (!clientSocket.ReceiveAsync(readEventArgs))
+                    {
+                        ProcessReceive(readEventArgs);
+                    }
+                }
+                else
+                {
+                    Reconnect();
+                }
             }
-            else
+            catch(SocketException err)
             {
-                throw new SocketException((Int32)errorCode);
+                Reconnect();
             }
-        }
-        private void InitReceive()
-        {
-            byte[] receiveBuffer = new byte[1024];
-            // Prepare arguments for send/receive operation.
-            SocketAsyncEventArgs completeArgs = new SocketAsyncEventArgs();
-            completeArgs.SetBuffer(receiveBuffer, 0, receiveBuffer.Length);
-            completeArgs.UserToken = new Token(clientSocket, 1024);
-            completeArgs.RemoteEndPoint = this.hostEndPoint;
-            completeArgs.AcceptSocket = clientSocket;
-            completeArgs.Completed += new EventHandler<SocketAsyncEventArgs>(OnReceive);
-            GeneralControl.Token = completeArgs.UserToken as Token;
-            clientSocket.ReceiveAsync(completeArgs);
-        }
-        /// <summary>
-        /// Disconnect from the host.
-        /// </summary>
-        internal void Disconnect()
-        {
-            clientSocket.Disconnect(false);
         }
 
         private void OnConnect(object sender, SocketAsyncEventArgs e)
         {
-
-            // Signals the end of connection.
             autoConnectEvent.Set();
-
-            // Set the flag for socket connected.
-            this.connected = (e.SocketError == SocketError.Success);
-
         }
 
-        private void Receive(SocketAsyncEventArgs e)
+        public void Disconnect()
+        {
+            Token.Connection.Disconnect(false);
+        }
+
+        private void OnReceiveCompleted(object sender, SocketAsyncEventArgs e)
+        {
+            this.ProcessReceive(e);
+        }
+        private void ProcessReceive(SocketAsyncEventArgs e)
         {
             // Check if the remote host closed the connection.
             if (e.BytesTransferred > 0)
@@ -132,117 +106,117 @@ namespace Make.MODEL.TCP_Async_Event
                 {
                     Token token = e.UserToken as Token;
                     token.SetData(e);
-
                     if (!token.Connection.ReceiveAsync(e))
                     {
                         // Read the next block of data sent by client.
-                        this.Receive(e);
+                        this.ProcessReceive(e);
                     }
                 }
                 else
                 {
-                    this.ProcessError(e);
+                    Reconnect();
                 }
-            }
-        }
-
-        private void OnReceive(object sender, SocketAsyncEventArgs e)
-        {
-            if (e.SocketError == SocketError.Success)
-            {
-                Receive(e);
             }
             else
             {
-                this.ProcessError(e);
+                Reconnect();
             }
         }
-
-        /// <summary>
-        /// Close socket in case of failure and throws a SockeException according to the SocketError.
-        /// </summary>
-        /// <param name="e">SocketAsyncEventArg associated with the failed operation.</param>
-        private void ProcessError(SocketAsyncEventArgs e)
+        public void Reconnect()
         {
-            Socket s = (e.UserToken as Token).Connection;
-            if (s.Connected)
+            Debug.WriteLine("与服务器连接异常,开始尝试重连！");
+            Socket clientSocket = Token.Connection;
+            for (int i = 1; i <= 10; i++)
             {
-                // close the socket associated with the client
+                clientSocket = Token.Connection;
+                if (clientSocket != null)
+                {
+                    Debug.WriteLine("开始销毁历史Socket");
+                    clientSocket.Close();
+                    clientSocket.Dispose();
+                    Debug.WriteLine("历史Socket销毁完成！");
+                }
+                Debug.WriteLine($"开始进行第{i}次尝试");
+                clientSocket = new Socket(this.hostEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                SocketAsyncEventArgs connectArgs = new SocketAsyncEventArgs();
+                connectArgs.UserToken = clientSocket;
+                connectArgs.RemoteEndPoint = this.hostEndPoint;
+                connectArgs.Completed += new EventHandler<SocketAsyncEventArgs>(OnConnect);
+                connectArgs.AcceptSocket = clientSocket;
                 try
                 {
-                    s.Shutdown(SocketShutdown.Both);
+                    clientSocket.ConnectAsync(connectArgs);
+                    autoConnectEvent.WaitOne();
+                    SocketError errorCode = connectArgs.SocketError;
+
+                    if (errorCode == SocketError.Success)
+                    {
+                        Token = new Token(null, hostname, port, DEFAULT_BUFFER_SIZE);
+                        Token.Connection = clientSocket;
+                        SocketAsyncEventArgs readEventArgs = new SocketAsyncEventArgs();
+                        readEventArgs.SetBuffer(new byte[DEFAULT_BUFFER_SIZE], 0, DEFAULT_BUFFER_SIZE);
+                        readEventArgs.Completed += OnReceiveCompleted;
+                        readEventArgs.UserToken = Token;
+                        if (!clientSocket.ReceiveAsync(readEventArgs))
+                        {
+                            ProcessReceive(readEventArgs);
+                        }
+                        Debug.WriteLine("重连成功！");
+                        break;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("重连失败，5秒后重试！");
+                        Thread.Sleep(5000);
+                    }
                 }
-                catch (Exception)
+                catch (SocketException err)
                 {
-                    // throws if client process has already closed
-                }
-                finally
-                {
-                    s.Close();
-                }
-            }
-            int cnt = 0;
-            while (true)
-            {
-                Debug.WriteLine("发生断开异常，正在进行重连.第" + (++cnt) + "次重连[最多重连10次]");
-                if (cnt == 10)
-                {
-                    Debug.WriteLine("重连失败");
-                    // Throw the SocketException
-                    throw new SocketException((Int32)e.SocketError);
-                }
-                try
-                {
-                    this.clientSocket = new Socket(this.hostEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                    clientSocket.Connect(s.RemoteEndPoint);
-                    InitReceive();
-                    Debug.WriteLine("客户端重连成功.");
-                    return;
-                }
-                catch
-                {
-                    if (clientSocket.Connected) clientSocket.Close();
+                    Debug.WriteLine("重连失败，5秒后重试！");
                     Thread.Sleep(5000);
                 }
             }
+            if(!clientSocket.Connected) Debug.WriteLine($"重连失败！"); 
         }
-
-        /// <summary>
-        /// 构造发送数据
-        /// </summary>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public byte[] Convert_SendMsg(string msg)
-        {
-            int length = msg.Length;
-            //构造内容
-            byte[] bodyBytes = Encoding.UTF8.GetBytes(msg);
-            //构造表头数据，固定4个字节的长度，表示内容的长度
-            byte[] headerBytes = BitConverter.GetBytes(bodyBytes.Length);
-
-            byte[] tempBytes = new byte[headerBytes.Length + bodyBytes.Length];
-            ///拷贝到同一个byte[]数组中，发送出去..
-            Buffer.BlockCopy(headerBytes, 0, tempBytes, 0, headerBytes.Length);
-            Buffer.BlockCopy(bodyBytes, 0, tempBytes, headerBytes.Length, bodyBytes.Length);
-            return tempBytes;
-        }
-
         #region IDisposable Members
+        bool isDipose = false;
 
-        /// <summary>
-        /// Disposes the instance of SocketClient.
-        /// </summary>
+        ~SocketClient()
+        {
+            Dispose(false);
+        }
         public void Dispose()
         {
-            autoConnectEvent.Close();
-            autoSendReceiveEvents[SendOperation].Close();
-            autoSendReceiveEvents[ReceiveOperation].Close();
-            if (this.clientSocket.Connected)
-            {
-                this.clientSocket.Close();
-            }
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
+        private void Dispose(bool disposing)
+        {
+            Socket clientSocket = Token.Connection;
+            if (isDipose) return;
+            if (disposing)
+            {
+                hostEndPoint = null;
+                autoConnectEvent.Close();
+                autoConnectEvent = null;
+            }
+            //处理非托管资源
+            try
+            {
+                clientSocket.Shutdown(SocketShutdown.Both);
+            }
+            catch (Exception)
+            {
+                // Throw if client has closed, so it is not necessary to catch.
+            }
+            finally
+            {
+                clientSocket.Close();
+                clientSocket = null;
+            }
+            isDipose = true;
+        }
         #endregion
     }
 }
